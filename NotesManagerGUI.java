@@ -183,41 +183,46 @@ public class NotesManagerGUI {
 
     // Method to create a note
     private void createNote() {
-        frame.getContentPane().removeAll();
-        frame.repaint();
+    frame.getContentPane().removeAll();
+    frame.repaint();
 
-        panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+    panel = new JPanel();
+    panel.setLayout(new BorderLayout());
 
-        JTextField titleField = new JTextField();
-        JTextArea contentArea = new JTextArea();
-        contentArea.setRows(10); // Set rows for the content area
-        contentArea.setColumns(40); // Set columns for the content area
+    JTextField titleField = new JTextField();
+    JTextArea contentArea = new JTextArea();
+    contentArea.setRows(10); // Set rows for the content area
+    contentArea.setColumns(40); // Set columns for the content area
 
-        JButton saveButton = new JButton("Save Note");
-        saveButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                saveNoteAndReturn(titleField.getText(), contentArea.getText());
-            }
-        });
+    JButton saveButton = new JButton("Save Note");
+    saveButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            saveNoteAndReturn(titleField.getText(), contentArea.getText());
+        }
+    });
 
-        JButton backButton = new JButton("Back");
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                openMainMenu();
-            }
-        });
+    JButton backButton = new JButton("Back");
+    backButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            openMainMenu();
+        }
+    });
 
-        panel.add(new JLabel("Title:"), BorderLayout.NORTH);
-        panel.add(titleField, BorderLayout.NORTH);
-        panel.add(new JLabel("Content:"), BorderLayout.CENTER);
-        panel.add(new JScrollPane(contentArea), BorderLayout.CENTER);
-        panel.add(saveButton, BorderLayout.SOUTH);
-        panel.add(backButton, BorderLayout.SOUTH);
+    // Panel for buttons
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT)); // Align buttons to the right
+    buttonPanel.add(backButton);
+    buttonPanel.add(saveButton);
 
-        frame.getContentPane().add(panel);
-        frame.pack();
-    }
+    panel.add(new JLabel("Title:"), BorderLayout.NORTH);
+    panel.add(titleField, BorderLayout.NORTH);
+    panel.add(new JLabel("Content:"), BorderLayout.CENTER);
+    panel.add(new JScrollPane(contentArea), BorderLayout.CENTER);
+    panel.add(buttonPanel, BorderLayout.SOUTH); // Add button panel to the SOUTH position
+
+    frame.getContentPane().add(panel);
+    frame.pack();
+   }
 
     // Method to delete a note
     private void deleteNote() {

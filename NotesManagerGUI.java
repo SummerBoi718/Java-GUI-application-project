@@ -18,7 +18,7 @@ public class NotesManagerGUI {
         frame = new JFrame("Notes Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(600, 400)); // Set preferred size of the frame
-        
+
         panel = new JPanel();
         panel.setLayout(new GridLayout(4, 1));
 
@@ -53,7 +53,7 @@ public class NotesManagerGUI {
     private void login() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
-        
+
         // Authenticate user
         if (authenticate(username, password)) {
             currentUser = username;
@@ -67,7 +67,7 @@ public class NotesManagerGUI {
     private void register() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
-        
+
         // Validate username and password
         if (!isValidUsername(username)) {
             JOptionPane.showMessageDialog(frame, "Invalid username. Please enter alphanumeric characters only.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -84,7 +84,7 @@ public class NotesManagerGUI {
             JOptionPane.showMessageDialog(frame, "Username already exists. Please choose a different username.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         try {
             FileWriter writer = new FileWriter(accountFile);
             writer.write(username + "\n" + password);
@@ -135,20 +135,56 @@ public class NotesManagerGUI {
             }
         });
 
-        JButton deleteNotesButton = new JButton("Delete Note");
-        deleteNotesButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                deleteNote();
-            }
-        });
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewLoginandSignIn();
+			}
+	    });
 
         panel.add(viewNotesButton);
         panel.add(createNotesButton);
-        panel.add(deleteNotesButton);
+        panel.add(backButton);
 
         frame.getContentPane().add(panel);
         frame.pack();
     }
+    //view loginandsignin scene
+    private void viewLoginandSignIn(){
+		frame.getContentPane().removeAll();
+        frame.repaint();
+
+        panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 1));
+
+		usernameField = new JTextField();
+		passwordField = new JPasswordField();
+				        loginButton = new JButton("Login");
+				        loginButton.addActionListener(new ActionListener() {
+				            public void actionPerformed(ActionEvent e) {
+				                login();
+				            }
+				        });
+				        registerButton = new JButton("Register");
+				        registerButton.addActionListener(new ActionListener() {
+				            public void actionPerformed(ActionEvent e) {
+				                register();
+				            }
+				        });
+
+
+				        panel.add(new JLabel("Username:"));
+				        panel.add(usernameField);
+				        panel.add(new JLabel("Password:"));
+				        panel.add(passwordField);
+				        panel.add(loginButton);
+				        panel.add(registerButton);
+
+				        frame.getContentPane().add(panel);
+		                frame.pack();
+
+		}
 
     // Method to view notes
     private void viewNotes() {
